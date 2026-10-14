@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><meta name="theme-color" content="#122745"><title>Slap & Run</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#122745;font-family:system-ui,sans-serif;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+#game{position:relative;width:100%;width:min(100%,56.25dvh,600px);height:100%;height:100dvh;max-width:600px;margin:auto;background:#73cfff}
+canvas{width:100%;height:100%;display:block;outline:none}#loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:white;background:linear-gradient(165deg,#6968ed,#27bad9);padding:32px;text-align:center}
+h1{font-size:42px;line-height:1.05;margin:12px}p{font-size:17px;line-height:1.5}progress{width:230px;height:9px;accent-color:#ffe779;border:0;border-radius:12px}
+#error{display:none}button{padding:16px 28px;border:0;border-radius:18px;background:white;color:#24335c;font-size:18px;font-weight:700}
+</style></head><body><div id="game"><canvas id="unity-canvas" tabindex="-1"></canvas><div id="loading"><h1>SLAP<br>& RUN</h1><p>Разомни ладони!</p><progress id="progress" max="1" value="0"></progress><p id="status">Готовим дорожку…</p><button id="error" onclick="location.reload()">Повторить</button></div></div>
+<script>
+// Loading and the platform SDK (Playgama Bridge) live in playgama-bridge-unity.js; it calls these three.
+function slapLoadingProgress(p){document.getElementById('progress').value=p;}
+function slapLoadingDone(){document.getElementById('loading').style.display='none';}
+function slapLoadingFailed(){document.getElementById('status').textContent='Не удалось загрузить игру. Попробуйте ещё раз.';document.getElementById('error').style.display='block';}
+document.addEventListener('visibilitychange',()=>{if(window.unityInstance)window.unityInstance.SendMessage('Game session','WebVisibility',document.hidden?'hidden':'visible');});
+document.addEventListener('contextmenu',e=>e.preventDefault());
+</script>
+<script src="playgama-bridge-unity.js"></script>
+</body></html>
